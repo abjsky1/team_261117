@@ -1,5 +1,8 @@
 package team_261117_spring;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +22,8 @@ public class FpDto {
     private String stops;
     private String arrival_time;
     private String destination_city;
+    @JsonProperty("class")
+    @JsonAlias("classbe")
     private String classbe;
     private Integer duration_hours;
     private Integer duration_minutes;

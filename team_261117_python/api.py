@@ -50,3 +50,34 @@ def predict_price(request: FlightInput):
     predicted_price = float(model.predict(input_df)[0])
     # 2) 응답반환
     return PredictionOutput(predicted_price=predicted_price)
+
+import asyncio
+import json
+from fastapi.responses import StreamingResponse
+
+@app.post('/predict/stream')
+async def predict_price_stream(request: FlightInput):
+    async def event_generator():
+        # 1단계: 전처리 알림
+        yield f"data: {json.dumps({'progress': 40, 'message': '데이터 범주형 변환 및 전처리 중...'})}\n\n"
+        await asyncio.sleep(0.4)
+
+        values = request.model_dump(by_alias=True)
+        input_df = pd.DataFrame([{column: values[column] for column in FEATURE_COLUMNS}])
+        input_df[CATEGORICAL_COLUMNS] = input_df[CATEGORICAL_COLUMNS].astype('category')
+
+        # 2단계: LightGBM 추론 알림
+        yield f"data: {json.dumps({'progress': 80, 'message': 'LightGBM 모델 가격 추론 중...'})}\n\n"
+        await asyncio.sleep(0.4)
+
+        predicted_price = float(model.predict(input_df)[0])
+
+        # 3단계: 최종 예측 가격 전송
+        result_data = {
+            'progress': 100,
+            'message': '예측 완료!',
+            'predicted_price': predicted_price
+        }
+        yield f"data: {json.dumps(result_data)}\n\n"
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")

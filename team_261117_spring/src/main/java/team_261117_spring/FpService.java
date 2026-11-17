@@ -14,8 +14,8 @@ public class FpService {
 
     private void applyDuration(FpDto fpDto) {
 
-        int hours = fpDto.getDuration_hours() 
-        int minutes = fpDto.getDuration_minutes()
+        int hours = fpDto.getDuration_hours(); 
+        int minutes = fpDto.getDuration_minutes();
 
         double duration = Math.round( (hours + (minutes / 60.0)) * 100.0) / 100.0;
 
@@ -29,7 +29,7 @@ public class FpService {
         applyDuration(fpDto);
 
         PriceDto pp = webClient.post()
-                     .uri("/pricepred")
+                     .uri("/predict")
                      .contentType(MediaType.APPLICATION_JSON)
                      .bodyValue(fpDto)
                      .retrieve()
@@ -37,7 +37,7 @@ public class FpService {
                      .block();
 
         return pp;
-        
+
     }
 
     public Flux<PriceDto> pricePredStream(FpDto fpDto) {
@@ -45,7 +45,7 @@ public class FpService {
         applyDuration(fpDto);
 
         return webClient.post()
-                .uri("/pricepred/stream")
+                .uri("/predict/stream")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.TEXT_EVENT_STREAM)
                 .bodyValue(fpDto)
