@@ -42,7 +42,6 @@ def objective( trial ) :
         Y_tr, Y_val = Y_train.iloc[ train_idx ] , Y_train.iloc[val_idx]
         model = LGBMRegressor(
             n_estimators=2000, # 최대 트리개수
-            metric='None', # 기본 l2 대신 아래 R2 평가 함수를 사용
             # trial.suggest_XXX( '파라미터명' , 시작값, 끝값 )
             learning_rate=trial.suggest_float( 'learning_rate' , 0.01 , 0.1 ), # 학습률. 트리별 결과 반영비율
             num_leaves=trial.suggest_int( 'num_leaves' , 15, 60 ), # 리프노드 최대개수
@@ -91,3 +90,6 @@ print( 'train r2: ', final_model.score( X_train , Y_train ) )
 print( 'test r2: ', final_model.score( X_test , Y_test ) )
 print( final_model.feature_name_ )
 print( final_model.feature_importances_ )
+
+import joblib
+joblib.dump( final_model , './team_261117_python/gbm_model.pkl') 
