@@ -19,8 +19,36 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+//	1. springboot
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+//	2. myspl jdbc
+  	implementation 'com.mysql:mysql-connector-j'
+// 	3. Lombok
+	compileOnly 'org.projectlombok:lombok'
+  	annotationProcessor 'org.projectlombok:lombok'
+// 	4. JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//	5. HTTP 통신 - Spring Reactive Web
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+//	6. XML 파싱 - Jackson Dataformat XML
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.22.2'
+// 	7. CSV 파싱 - OpenCSV
+	implementation 'com.opencsv:opencsv:5.12.0'
+//	8. build.gradle 에서 비크립트 관련 라이브러리 설치
+	implementation 'org.springframework.security:spring-security-crypto'
+// 	9. JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+   	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+   	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+// 	10. REDIS
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+//	11. WebSocket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+//	12. 웹크롤링 
+//	(1) 동적페이지 용도 - jsoup
+	implementation 'org.jsoup:jsoup:1.23.2'
+//	(2) 정적페이지 용도 - playwright
+	implementation 'com.microsoft.playwright:playwright:1.63.0'
 }
 
 tasks.named('test') {
