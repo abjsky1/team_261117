@@ -20,6 +20,8 @@ public class FpDto {
     private String arrival_time;
     private String destination_city;
     private String classbe;
+    private Integer duration_hours;
+    private Integer duration_minutes;
     private Double duration;
     private Integer days_left;
 

@@ -11,6 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder 
 public class PriceDto {
 
-    private Double duration;
+    private Integer price;
+
+    private Integer progress;
+    
+    private String message;
 
 }
