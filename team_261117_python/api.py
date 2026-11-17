@@ -55,6 +55,9 @@ import asyncio
 import json
 from fastapi.responses import StreamingResponse
 
+
+
+
 @app.post('/predict/stream')
 async def predict_price_stream(request: FlightInput):
     async def event_generator():
@@ -81,3 +84,9 @@ async def predict_price_stream(request: FlightInput):
         yield f"data: {json.dumps(result_data)}\n\n"
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { FpDto, PriceDto } from '../types/flight';
+// 아래 줄에서 import 뒤에 type 을 꼭 붙여주세요!
+import type { FpDto, PriceDto } from '../types/flight';
 import './FlightPredictor.css';
 
 // 학습 데이터에 사용된 실제 범주(Category) 목록 고정
